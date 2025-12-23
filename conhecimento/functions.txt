@@ -1,0 +1,124 @@
+// save_data_of_current_contact_from_responses
+exports.callSaveDataOfCurrentContactFunctionDeclaration = {
+   name: 'save_data_of_current_contact_from_responses',
+   description: 'atualiza os dados de contato do usuário conversando, apenas quando solicitado explicitamente',
+};
+
+exports.callAddTagOfCurrentSessionFunctionDefinition = {
+   name: 'add_tag_of_current_session',
+   description: 'adiciona uma tag no contato da sessão atual apenas quando solicitado/especificado no prompt',
+};
+
+exports.callSendAutomateMsgToContactFunctionDeclaration = {
+   name: 'send_automate_msg_to_contact',
+	description: 'envia uma mensagem automática para o contato que esta conversando, apenas quando solicitado explicitamente',
+};
+
+//
+// Funções de Automações
+//
+
+// send_automate_msg_to_current_session - Available in channels (WhatsApp)
+exports.callSendAutomateMsgToCurrentSessionFunctionDeclaration = {
+   name: 'send_automate_msg_to_current_session',
+   description: 'dispara uma mensagem automática para o contato que esta conversando quando chamado no prompt',
+};
+
+//
+// Funções de Base de Dados
+//
+
+// register_msg_out_of_database
+exports.callRegisterMsgOutOfDatabaseFunctionDeclaration = {
+   name: 'register_msg_out_of_database',
+   description: 'registra a mensagem do contato que não foi respondida devido estar fora da base de dados, apenas quando solicitado explicitamente',
+};
+
+//
+// Funções de Produtos
+//
+
+// list_products_vehicle
+exports.callListProductsVehicleFunctionDefinition = {
+   name: 'list_products_vehicle',
+   description: 'lista os produtos veículo disponível em estoque conforme cadastro',
+};
+
+// detail_products_vehicle
+exports.callDetailProductsVehicleFunctionDefinition = {
+   name: 'detail_products_vehicle',
+   description: 'detalha o produto veículo solicitado pelo contato',
+};
+
+// send_photos_products_vehicle
+exports.callSendFilesProductsVehicleFunctionDefinition = {
+   name: 'send_photos_products_vehicle',
+   description: 'envia as fotos dos produtos veículo detalhado',
+};
+
+// list_products
+exports.callListProductsFunctionDefinition = {
+   name: 'list_products',
+   description: 'lista os produtos disponível em estoque conforme cadastro',
+};
+
+// detail_products
+exports.callDetailProductsFunctionDefinition = {
+   name: 'detail_products',
+   description: 'detalha o produto informado pelo contato',
+};
+
+// send_files_products
+exports.callSendFilesProductsFunctionDefinition = {
+   name: 'send_files_products',
+   description: 'envia os arquivos (fotos, documentos, videos e audios) do produto detalhado',
+};
+
+// detail_products_by_link
+exports.callDetailProductsByLinkFunctionDefinition = {
+   name: 'detail_products_by_link',
+   description: 'detalha o produto por link extraído na mensagem',
+};
+//
+// Funções de Agendas
+//
+
+// list_calendars_agendas
+exports.callListCalendarsFunctionDefinition = {
+   name: 'list_calendars_agendas',
+   description: 'lista os calendários de agendas e disponibilidades de datas e horários',
+};
+
+// check_date_only_is_available
+exports.callCheckDateOnlyIsAvailableDefinition = {
+   name: 'check_date_only_is_available',
+   description: 'checa se apenas data solicitada pelo contato está disponível na agenda',
+};
+
+// check_date_time_is_available
+exports.callCheckDateTimeIsAvailableDefinition = {
+   name: 'check_date_time_is_available',
+   description: 'checa se apenas data/hora solicitada pelo contato está disponível na agenda',
+};
+
+// list_users_have_agenda_calendars
+exports.callListCalendarsUsersFunctionDefinition = {
+   name: 'list_users_have_agenda_calendars',
+   description: 'lista os usuários/consultores que possuem agendas no calendário',
+};
+
+// add_calendars_agendas
+exports.callAddCalendarsFunctionDefinition = {
+   name: 'add_calendars_agendas',
+   description: 'adiciona um compromisso no calendário de agenda do consultor identificado no userId',
+};
+
+//
+// Funções de Controle de Fluxos
+//
+
+// change_step
+exports.callChangeStepAgentFunctionDefinition = {
+   name: 'change_step',
+   description: 'troca de etapa de atendimento quando objetivo da etapa atual é atingido ou é solicitado no prompt',
+};
