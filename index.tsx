@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
-import { GoogleGenAI, GenerateContentResponse, Chat } from "@google/genai";
+import OpenAI from 'openai';
 import { Send, Bot, User, Loader2, Sparkles, AlertCircle } from 'lucide-react';
 
 // System Instruction updated with new requirements
@@ -99,7 +99,12 @@ Este trecho deve estar em todos prompts das etapas:
 - NÃO use o termo "markdown" no texto.`;
 
 interface Message {
-  role: 'user' | 'model';
+  role: 'user' | 'assistant';
+  content: string;
+}
+
+interface ChatMessage {
+  role: 'system' | 'user' | 'assistant';
   content: string;
 }
 
@@ -107,19 +112,21 @@ const App: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [chatSession, setChatSession] = useState<Chat | null>(null);
+  const [openai, setOpenai] = useState<OpenAI | null>(null);
+  const [chatHistory, setChatHistory] = useState<ChatMessage[]>([
+    { role: 'system', content: SYSTEM_INSTRUCTION }
+  ]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-    const chat = ai.chats.create({
-      model: 'gemini-3-pro-preview',
-      config: {
-        systemInstruction: SYSTEM_INSTRUCTION,
-        temperature: 0.4,
-      },
-    });
-    setChatSession(chat);
+    const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
+    if (apiKey) {
+      const client = new OpenAI({ 
+        apiKey,
+        dangerouslyAllowBrowser: true 
+      });
+      setOpenai(client);
+    }
   }, []);
 
   const scrollToBottom = () => {
@@ -131,23 +138,31 @@ const App: React.FC = () => {
   }, [messages]);
 
   const handleSend = async () => {
-    if (!input.trim() || !chatSession || isLoading) return;
+    if (!input.trim() || !openai || isLoading) return;
 
     const userMessage: Message = { role: 'user', content: input };
+    const newChatHistory: ChatMessage[] = [...chatHistory, { role: 'user', content: input }];
+    
     setMessages((prev) => [...prev, userMessage]);
+    setChatHistory(newChatHistory);
     setInput('');
     setIsLoading(true);
 
     try {
-      const result = await chatSession.sendMessageStream({ message: input });
+      const stream = await openai.chat.completions.create({
+        model: 'gpt-4.1-mini',
+        messages: newChatHistory,
+        temperature: 0.4,
+        stream: true,
+      });
       
       let modelResponseContent = '';
-      setMessages((prev) => [...prev, { role: 'model', content: '' }]);
+      setMessages((prev) => [...prev, { role: 'assistant', content: '' }]);
 
-      for await (const chunk of result) {
-        const chunkText = chunk.text;
+      for await (const chunk of stream) {
+        const chunkText = chunk.choices[0]?.delta?.content || '';
         // Safety filter for the prohibited term "markdown" in case model slips
-        const filteredText = chunkText?.replace(/markdown/gi, '') || '';
+        const filteredText = chunkText.replace(/markdown/gi, '');
         modelResponseContent += filteredText;
         
         setMessages((prev) => {
@@ -156,11 +171,14 @@ const App: React.FC = () => {
           return newMessages;
         });
       }
+
+      // Add assistant response to chat history
+      setChatHistory((prev) => [...prev, { role: 'assistant', content: modelResponseContent }]);
     } catch (error) {
       console.error('Error sending message:', error);
       setMessages((prev) => [
         ...prev,
-        { role: 'model', content: 'Erro técnico no processamento NLU. Verifique a conexão e tente novamente.' },
+        { role: 'assistant', content: 'Erro técnico no processamento NLU. Verifique a conexão e tente novamente.' },
       ]);
     } finally {
       setIsLoading(false);
@@ -239,7 +257,7 @@ const App: React.FC = () => {
             </div>
           </div>
         ))}
-        {isLoading && messages[messages.length-1]?.role !== 'model' && (
+        {isLoading && messages[messages.length-1]?.role !== 'assistant' && (
           <div className="flex justify-start items-center gap-3 text-orange-600 animate-pulse ml-2">
             <div className="bg-orange-600 p-2 rounded-lg">
               <Loader2 className="w-4 h-4 text-white animate-spin" />
@@ -280,7 +298,7 @@ const App: React.FC = () => {
         </div>
         <div className="mt-3 flex justify-between items-center px-2">
           <p className="text-[9px] text-gray-400 font-bold uppercase tracking-widest">
-            Loop Criativo Engine v4.1 | Senior Specialized Agent
+            Loop Criativo Engine v4.1 | GPT-4.1-mini
           </p>
           <div className="flex gap-2">
              <div className="w-1.5 h-1.5 rounded-full bg-orange-400"></div>
