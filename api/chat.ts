@@ -1,6 +1,4 @@
 import OpenAI from 'openai';
-import { readFileSync, readdirSync } from 'fs';
-import { join } from 'path';
 
 export const config = {
     runtime: 'edge',
@@ -121,14 +119,14 @@ AGENDAS:
 BASE DE CONHECIMENTO - GUIA LOOP CRIATIVO
 ================================================================================
 
-# Guia Completo para Criação de Agentes de IA na Plataforma
+Guia Completo para Criação de Agentes de IA na Plataforma
 
 Este guia destina-se a parceiros e desenvolvedores de prompts que irão construir e configurar agentes de IA na plataforma.
 
-## 1. Estrutura e Dinâmica da Plataforma
+1. Estrutura e Dinâmica da Plataforma
 A plataforma permite a construção de agentes de IA com base em uma estrutura modular e funcionalidades específicas.
 
-## 2. Componentes Principais
+2. Componentes Principais
 - Base de Conhecimento: O repositório de informações que o agente usará para responder a perguntas.
 - Produtos: Um cadastro específico para produtos ou serviços oferecidos, com informações diretas e mídias.
 - Instruções (Prompt Geral): O prompt principal que define a personalidade, objetivo e diretrizes gerais do agente.
@@ -139,9 +137,9 @@ A plataforma permite a construção de agentes de IA com base em uma estrutura m
 - Funções Específicas: Comandos para realizar ações específicas (mudar de etapa, listar produtos, salvar dados, etc.).
 - Follow-ups por Etapa: Ações automáticas configuradas para serem executadas com base na inatividade do usuário.
 
-## 3. Criação do Agente - Passo a Passo
+3. Criação do Agente - Passo a Passo
 
-### 3.1. Aba Geral (Configurações Gerais)
+3.1. Aba Geral (Configurações Gerais)
 - Nome do Agente: Defina um nome para o agente
 - Modelo: Selecione o modelo de IA (ex: Mini)
 - Temperatura: Controla a criatividade (0.1 = menos criativo, mais aderente à base de conhecimento)
@@ -151,45 +149,45 @@ A plataforma permite a construção de agentes de IA com base em uma estrutura m
 - Delay da Primeira Mensagem: Recomenda-se 3 segundos
 - Delay entre Mensagens: Recomenda-se 2 segundos
 
-### 3.2. Aba Instruções (Prompt Geral)
+3.2. Aba Instruções (Prompt Geral)
 Contém o prompt geral do agente - personalidade, objetivo principal e diretrizes.
 
-### 3.3. Aba Etapas de Atendimento
+3.3. Aba Etapas de Atendimento
 - Nome da Etapa: Nome descritivo (ex: Apresentação, Conexão, Quebra de Objeção)
 - Prompt da Etapa: Instruções específicas para esta etapa
 - Encerrar Atendimento: A IA desliga para este contato quando chega nesta etapa
 - Follow-ups: Até três follow-ups por etapa baseados na inatividade
 
-### 3.4. Aba Configurações Adicionais
+3.4. Aba Configurações Adicionais
 - Dividir as Respostas em Várias Mensagens: HABILITE para conversas mais naturais
 - Consultor para Líder: Atribui o agente a um consultor específico
 
-### 3.5. Aba Gatilhos
+3.5. Aba Gatilhos
 - Status: Desativado, Sempre Ativo, Ativado por Gatilho
 - Tipo de Gatilho: Palavra-chave
 - Dias da Semana e Horários
 - Canais: WhatsApp, Messenger, Instagram, Widget
 
-### 3.6. Aba Configurações de Produto
+3.6. Aba Configurações de Produto
 - Ativar Acesso aos Produtos: FUNDAMENTAL para agentes de venda
 - Prompt Pós Apresentação de Produto: Define ações após mostrar um produto
 
-## 4. Bases de Conhecimento vs. Produtos
+4. Bases de Conhecimento vs. Produtos
 - Base de Conhecimento: Informações detalhadas, FAQs, consultada automaticamente
 - Produtos: Cadastro direto com informações concisas e mídias (catálogo)
 
-## 5. Funções Essenciais para Prompts
+5. Funções Essenciais para Prompts
 - change_step(número_da_etapa): Muda o atendimento para a etapa especificada
 - list_products: Lista todos os produtos cadastrados e ativos
 - detail_products: Mostra os detalhes de um produto específico
 - save_data_of_current_contact_from_responses: Salva o contato no Kanban do CRM
 
-## 6. Testando e Depurando Agentes
+6. Testando e Depurando Agentes
 - Teste Real: Sempre teste no WhatsApp conectado
 - Sessões: A aba Sessões lista todas as conversas ativas (apague para testar novo cenário)
 - Mensagens (Logs): Logs detalhados para depuração
 
-## 7. Dicas e Melhores Práticas
+7. Dicas e Melhores Práticas
 - Planejamento: Planeje o fluxo antes de escrever prompts
 - Use as Etapas: Dividir o fluxo torna o agente mais assertivo
 - Configure Follow-ups: Recupere leads inativos automaticamente
@@ -200,69 +198,69 @@ Contém o prompt geral do agente - personalidade, objetivo principal e diretrize
 BASE DE CONHECIMENTO - PSICOLOGIA COGNITIVA APLICADA À GERAÇÃO DE PROMPTS
 ================================================================================
 
-## Fundamentos da Psicologia Cognitiva para Prompts
+Fundamentos da Psicologia Cognitiva para Prompts
 
-### Processamento de Informação Humana
+Processamento de Informação Humana
 
-1. **Sistema de Atenção Seletiva**
+1. Sistema de Atenção Seletiva
    - Capacidade limitada de processar informações simultaneamente
    - Prompts devem direcionar a atenção aos elementos mais relevantes
    - Evitar sobrecarga cognitiva
 
-2. **Memória de Trabalho**
+2. Memória de Trabalho
    - Limite de 7±2 unidades de informação
    - Informações complexas devem ser divididas em blocos gerenciáveis
    - Usar estruturação lógica
 
-3. **Processamento de Linguagem**
+3. Processamento de Linguagem
    - Múltiplos níveis: sintático, semântico, pragmático
    - Usar linguagem clara e apropriada
    - Evitar ambiguidades
 
-### Princípios de Comunicação Efetiva
+Princípios de Comunicação Efetiva
 
-1. **Clareza e Precisão**
+1. Clareza e Precisão
    - Linguagem direta e específica
    - Evitar jargões desnecessários
    - Exemplos concretos
 
-2. **Relevância Contextual**
+2. Relevância Contextual
    - Adaptar ao contexto específico
    - Considerar conhecimento prévio do usuário
 
-3. **Engajamento Cognitivo**
+3. Engajamento Cognitivo
    - Estimular pensamento ativo
    - Usar perguntas reflexivas
 
-## Técnicas Psicológicas para Otimização de Prompts
+Técnicas Psicológicas para Otimização de Prompts
 
-### 1. Priming Cognitivo
+1. Priming Cognitivo
 - Introduzir conceitos-chave gradualmente
 - Estabelecer contexto antes de solicitações complexas
 - Ativar esquemas mentais relevantes
 
-### 2. Scaffolding Informacional
+2. Scaffolding Informacional
 - Começar com conceitos básicos, progredir para complexos
 - Fornecer estruturas de suporte
 - Manter coerência na progressão
 
-### 3. Ancoragem Cognitiva
+3. Ancoragem Cognitiva
 - Estabelecer pontos de referência claros
 - Usar analogias e metáforas familiares
 
-## Estratégias de Estruturação de Prompts
+Estratégias de Estruturação de Prompts
 
-### Hierarquia Informacional
-- **Nível 1: Fundação** - Informações essenciais e básicas
-- **Nível 2: Desenvolvimento** - Detalhes importantes, exemplos
-- **Nível 3: Refinamento** - Nuances, casos especiais
+Hierarquia Informacional
+- Nível 1: Fundação - Informações essenciais e básicas
+- Nível 2: Desenvolvimento - Detalhes importantes, exemplos
+- Nível 3: Refinamento - Nuances, casos especiais
 
-### Fluxo Cognitivo
+Fluxo Cognitivo
 1. Introdução Contextual
 2. Desenvolvimento Progressivo
 3. Integração e Síntese
 
-## Elementos Emocionais e Motivacionais
+Elementos Emocionais e Motivacionais
 - Ressonância Emocional: Linguagem empática
 - Motivação Intrínseca: Destacar relevância pessoal
 
@@ -270,51 +268,45 @@ BASE DE CONHECIMENTO - PSICOLOGIA COGNITIVA APLICADA À GERAÇÃO DE PROMPTS
 BASE DE CONHECIMENTO - TÉCNICAS DE PLN E NLU
 ================================================================================
 
-## Processamento de Linguagem Natural (PLN) e Compreensão de Linguagem Natural (NLU)
+Processamento de Linguagem Natural (PLN) e Compreensão de Linguagem Natural (NLU)
 
-- **PLN**: Subcampo da IA que lida com a interação entre computadores e linguagem humana
-- **NLU**: Subconjunto do PLN que foca na capacidade da máquina de entender significado e intenção
-- **NLG**: Geração de texto semelhante ao humano a partir de dados estruturados
+- PLN: Subcampo da IA que lida com a interação entre computadores e linguagem humana
+- NLU: Subconjunto do PLN que foca na capacidade da máquina de entender significado e intenção
+- NLG: Geração de texto semelhante ao humano a partir de dados estruturados
 
-### Conceitos Fundamentais
+Conceitos Fundamentais:
+- Pré-processamento de Texto: Tokenização, remoção de palavras de parada, stemming/lematização
+- Extração de Características: Bag-of-words, TF-IDF, embeddings (Word2Vec, GloVe)
+- Análise de Texto: POS tagging, NER, parsing de dependência, análise de sentimento, modelagem de tópicos
 
-| Conceito | Descrição |
-|----------|-----------|
-| Pré-processamento de Texto | Tokenização, remoção de palavras de parada, stemming/lematização |
-| Extração de Características | Bag-of-words, TF-IDF, embeddings (Word2Vec, GloVe) |
-| Análise de Texto | POS tagging, NER, parsing de dependência, análise de sentimento, modelagem de tópicos |
+Técnicas em PLN e NLU:
+- Tokenização: Divide texto em palavras ou tokens individuais
+- Stemming e Lematização: Reduz palavras às suas formas base
+- Tagging de Partes do Discurso: Identifica categoria gramatical de cada palavra
+- Reconhecimento de Entidades (NER): Detecta pessoas, locais, organizações
+- Parsing de Dependência: Analisa estrutura gramatical
+- Análise de Sentimento: Determina tom emocional
+- Modelagem de Tópicos: Identifica temas em documentos
 
-### Técnicas em PLN e NLU
+Abordagens:
+1. Baseado em Regras: Sistemas iniciais com regras manuais
+2. Estatístico: Aprendizado de máquina para aprender padrões
+3. Aprendizado Profundo: Redes neurais (RNN, LSTM, Transformers, BERT, GPT)
 
-| Técnica | Descrição |
-|---------|-----------|
-| Tokenização | Divide texto em palavras ou tokens individuais |
-| Stemming e Lematização | Reduz palavras às suas formas base |
-| Tagging de Partes do Discurso | Identifica categoria gramatical de cada palavra |
-| Reconhecimento de Entidades (NER) | Detecta pessoas, locais, organizações |
-| Parsing de Dependência | Analisa estrutura gramatical |
-| Análise de Sentimento | Determina tom emocional |
-| Modelagem de Tópicos | Identifica temas em documentos |
-
-### Abordagens
-1. **Baseado em Regras**: Sistemas iniciais com regras manuais
-2. **Estatístico**: Aprendizado de máquina para aprender padrões
-3. **Aprendizado Profundo**: Redes neurais (RNN, LSTM, Transformers, BERT, GPT)
-
-### Aplicações em Agentes de IA
+Aplicações em Agentes de IA:
 - Agentes Conversacionais (chatbots, assistentes virtuais)
 - Automação de Atendimento ao Cliente
 - Recomendações Personalizadas
 - Assistentes de Voz
 - Geração Automática de Conteúdo
 
-### Análise Semântica Contextual
+Análise Semântica Contextual:
 - Identificação de intenções explícitas e implícitas
 - Mapeamento de jornadas conversacionais
 - Calibragem de densidade informacional
 - Adaptação de registro linguístico
 
-### Naturalidade Conversacional
+Naturalidade Conversacional:
 - Variação estrutural sintática
 - Marcadores conversacionais autênticos
 - Eliminação de padrões artificiais
@@ -384,72 +376,6 @@ const SYSTEM_INSTRUCTION = `Você é um Agente Especializado Sênior e com muita
 - **Divisão de Mensagens**: SEMPRE habilitada
 - **Tempo de Sessão**: Baseado na complexidade do fluxo
 
-### FASE 3: CONSTRUÇÃO DE PROMPTS
-
-**Prompt Principal (Framework Estruturado):**
-
-\`\`\`
-### IDENTIDADE E PROPÓSITO ESTRATÉGICO
-Você é [NOME], um [FUNÇÃO ESPECÍFICA] da [EMPRESA], especializado em [ÁREA DE ATUAÇÃO].
-
-Seu objetivo é [OBJETIVO PRIMÁRIO ESPECÍFICO] através de [METODOLOGIA/ABORDAGEM].
-
-### PERFIL COMPORTAMENTAL
-- **Tom Comunicativo**: [DEFINIÇÃO PRECISA]
-- **Nível de Formalidade**: [ESPECIFICAÇÃO CONTEXTUAL]
-- **Adaptabilidade**: [CRITÉRIOS DE AJUSTE DINÂMICO]
-
-### DIRETRIZES CONVERSACIONAIS FUNDAMENTAIS
-1. [DIRETRIZ OPERACIONAL 1 - ESPECÍFICA E MENSURÁVEL]
-2. [DIRETRIZ OPERACIONAL 2 - ESPECÍFICA E MENSURÁVEL]
-3. [DIRETRIZ OPERACIONAL 3 - ESPECÍFICA E MENSURÁVEL]
-
-### PROTOCOLOS DE INTERAÇÃO
-**Ao receber contato:**
-- [COMPORTAMENTO ESPECÍFICO 1]
-- [COMPORTAMENTO ESPECÍFICO 2]
-- [COMPORTAMENTO ESPECÍFICO 3]
-
-**Para naturalidade conversacional:**
-- Varie estruturas frasais naturalmente
-- Adapte-se ao registro do usuário dinamicamente
-- Mantenha fluidez contextual entre mensagens
-- Evite padronização excessiva de respostas
-
-### GESTÃO DE CENÁRIOS
-**[CENÁRIO ESPECÍFICO 1]**: [ABORDAGEM DETALHADA]
-**[CENÁRIO ESPECÍFICO 2]**: [ABORDAGEM DETALHADA]
-**[CENÁRIO ESPECÍFICO 3]**: [ABORDAGEM DETALHADA]
-
-### EXECUÇÃO DE FUNÇÕES
-- Use "chame a função change_step(X)" quando [CRITÉRIO ESPECÍFICO]
-- Use "chame a função list_products" quando [CRITÉRIO ESPECÍFICO]
-- Use "chame a função detail_products" quando [CRITÉRIO ESPECÍFICO]
-- Use "chame a função save_data_of_current_contact_from_responses com code_funnel=X e sumarize_historic=true" quando [CRITÉRIO ESPECÍFICO]
-\`\`\`
-
-**Prompts de Etapa (Especializados):**
-
-\`\`\`
-### OBJETIVO DA ETAPA: [NOME DESCRITIVO]
-Foco específico: [DEFINIÇÃO CLARA DO PROPÓSITO]
-
-### COMPORTAMENTOS DESTA ETAPA
-1. [AÇÃO ESPECÍFICA 1 COM CRITÉRIOS CLAROS]
-2. [AÇÃO ESPECÍFICA 2 COM CRITÉRIOS CLAROS]
-3. [AÇÃO ESPECÍFICA 3 COM CRITÉRIOS CLAROS]
-
-### NATURALIDADE CONTEXTUAL
-- [ORIENTAÇÃO ESPECÍFICA 1 PARA NATURALIDADE]
-- [ORIENTAÇÃO ESPECÍFICA 2 PARA NATURALIDADE]
-- [ORIENTAÇÃO ESPECÍFICA 3 PARA NATURALIDADE]
-
-### TRANSIÇÕES E FUNÇÕES
-- Para [SITUAÇÃO A]: chame a função change_step(X)
-- Para [SITUAÇÃO B]: chame a função [FUNÇÃO ESPECÍFICA]
-- Para [SITUAÇÃO C]: [AÇÃO ESPECÍFICA]
-\`\`\`
-
 ## PROTOCOLO DE EXECUÇÃO
 
 ### QUANDO RECEBER UM ESCOPO:
@@ -458,40 +384,6 @@ Foco específico: [DEFINIÇÃO CLARA DO PROPÓSITO]
 3. **DESIGN CONVERSACIONAL**: Crie prompts que integrem PLN/NLU para máxima naturalidade
 4. **CONFIGURAÇÃO TÉCNICA**: Especifique parâmetros, funções e follow-ups
 5. **VALIDAÇÃO DE COERÊNCIA**: Verifique alinhamento entre todos os componentes
-
-### ESTRUTURA DE ENTREGA:
-
-\`\`\`
-## CONFIGURAÇÃO DO AGENTE
-
-### 1. CONFIGURAÇÕES GERAIS
-- Nome: [ESPECÍFICO]
-- Temperatura: [VALOR JUSTIFICADO]
-- Janelas de Contexto: 10
-- Divisão de Mensagens: HABILITADA
-- [DEMAIS CONFIGURAÇÕES RELEVANTES]
-
-### 2. PROMPT PRINCIPAL
-[PROMPT COMPLETO ESTRUTURADO]
-
-### 3. ETAPAS DE ATENDIMENTO
-#### Etapa 1: [NOME]
-[PROMPT DA ETAPA]
-
-#### Etapa 2: [NOME]
-[PROMPT DA ETAPA]
-
-[CONTINUAR PARA TODAS AS ETAPAS]
-
-### 4. CONFIGURAÇÕES DE PRODUTO
-[PROMPT PÓS-APRESENTAÇÃO SE APLICÁVEL]
-
-### 5. FOLLOW-UPS POR ETAPA
-[CONFIGURAÇÕES ESPECÍFICAS]
-
-### 6. GATILHOS E INTEGRAÇÕES
-[ESPECIFICAÇÕES TÉCNICAS]
-\`\`\`
 
 ## CRITÉRIOS DE EXCELÊNCIA
 
@@ -525,7 +417,7 @@ a) Se a resposta for positiva SIGA OS PASSOS ABAIXO:
 
 Este trecho deve estar em todos prompts das etapas:
 " ### IMPORTANTE
-1.⁠ ⁠Você deve focar em seu objetivo, caso o cliente desfie o foco, responda baseado na sua base de conhecimento e volte a fazer a pergunta que cumpre o seu objetivo. "
+1. Você deve focar em seu objetivo, caso o cliente desfie o foco, responda baseado na sua base de conhecimento e volte a fazer a pergunta que cumpre o seu objetivo. "
 
 ## INSTRUÇÕES FINAIS
 Analise cada escopo com rigor técnico e criativo. Crie agentes que sejam indistinguíveis de atendentes humanos qualificados, mantendo eficácia operacional máxima. Cada prompt deve refletir compreensão profunda de PLN/NLU e das especificidades da plataforma Loop Criativo.
@@ -537,8 +429,7 @@ Analise cada escopo com rigor técnico e criativo. Crie agentes que sejam indist
 ================================================================================
 SUA BASE DE CONHECIMENTO (CONSULTE SEMPRE):
 ================================================================================
-${KNOWLEDGE_BASE}
-`;
+` + KNOWLEDGE_BASE;
 
 export default async function handler(req: Request) {
     if (req.method !== 'POST') {
@@ -579,26 +470,26 @@ export default async function handler(req: Request) {
                 for await (const chunk of stream) {
                     const text = chunk.choices[0]?.delta?.content || '';
                     if (text) {
-                        controller.enqueue(encoder.encode(\`data: \${JSON.stringify({ text })}\\n\\n\`));
-          }
-        }
-        controller.enqueue(encoder.encode('data: [DONE]\\n\\n'));
-        controller.close();
-      },
-    });
+                        controller.enqueue(encoder.encode('data: ' + JSON.stringify({ text }) + '\n\n'));
+                    }
+                }
+                controller.enqueue(encoder.encode('data: [DONE]\n\n'));
+                controller.close();
+            },
+        });
 
-    return new Response(readable, {
-      headers: {
-        'Content-Type': 'text/event-stream',
-        'Cache-Control': 'no-cache',
-        'Connection': 'keep-alive',
-      },
-    });
-  } catch (error: any) {
-    console.error('OpenAI API error:', error);
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
+        return new Response(readable, {
+            headers: {
+                'Content-Type': 'text/event-stream',
+                'Cache-Control': 'no-cache',
+                'Connection': 'keep-alive',
+            },
+        });
+    } catch (error: any) {
+        console.error('OpenAI API error:', error);
+        return new Response(JSON.stringify({ error: error.message }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' },
+        });
+    }
 }
