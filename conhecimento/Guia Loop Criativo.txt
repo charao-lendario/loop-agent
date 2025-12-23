@@ -1,0 +1,110 @@
+Guia Completo para Criação de Agentes de IA na Plataforma
+Este guia destina-se a parceiros e desenvolvedores de prompts que irão construir e configurar agentes de IA na plataforma. O objetivo é fornecer uma compreensão detalhada da estrutura, funcionalidades e melhores práticas para criar agentes eficazes e de excelência, servindo como base para um agente de IA que auxiliará nesse processo.
+1. Estrutura e Dinâmica da Plataforma
+A plataforma permite a construção de agentes de IA com base em uma estrutura modular e funcionalidades específicas. A dinâmica para construção de prompts e agentes envolve entender como diferentes componentes interagem, como bases de conhecimento, produtos, etapas e funções específicas.
+2. Componentes Principais
+A criação de um agente na plataforma envolve a configuração de diversas abas e módulos. Os principais componentes são:
+Base de Conhecimento: O repositório de informações que o agente usará para responder a perguntas.
+Produtos: Um cadastro específico para produtos ou serviços oferecidos, com informações diretas e mídias.
+Instruções (Prompt Geral): O prompt principal que define a personalidade, objetivo e diretrizes gerais do agente.
+Etapas de Atendimento: Módulos que dividem o fluxo de conversa em etapas específicas, cada uma com seu próprio prompt focado.
+Configurações de Produto (Prompt Específico): Um prompt dedicado para definir as ações que o agente deve tomar após apresentar um produto.
+Gatilhos: Define como e onde o agente será ativado (palavra-chave, horário, canal).
+Integrações/Conexões: Configuração das fontes de comunicação (WhatsApp, Messenger, Instagram, Widget) onde o agente irá operar.
+Funções Específicas: Comandos que podem ser chamados dentro dos prompts ou configurados em outras seções para realizar ações específicas (mudar de etapa, listar produtos, salvar dados, etc.).
+Follow-ups por Etapa: Ações automáticas configuradas para serem executadas com base na inatividade do usuário em uma etapa específica.
+Sessões: Registros das conversas ativas do agente com cada contato, essenciais para testes.
+Mensagens (Logs): Logs detalhados da conversa e das ações tomadas pelo agente, úteis para depuração.
+3. Criação do Agente - Passo a Passo
+Para criar um novo agente, acesse o menu Agentes > Agentes de IA e clique em Novo.
+3.1. Aba Geral (Configurações Gerais)
+Nome do Agente: Defina um nome para o agente (ex: Agente Teste).
+Modelo: Selecione o modelo de IA a ser utilizado. A plataforma geralmente utiliza modelos OpenAI (ex: Mini). É possível escolher modelos diferentes para Conversação (geral), Objetivo e Resumo para otimizar custos. Recomenda-se usar o modelo Mini para tudo inicialmente, ou conforme a API integrada.
+API: Selecione a API a ser utilizada.
+Consultor de Vendas: Atualmente sem função.
+Tom de Voz: Pode ser deixado como Neutro.
+Temperatura: Controla a criatividade do agente. Um valor baixo (ex: 0.1) torna o agente pouquíssimo criativo e mais aderente à base de conhecimento e prompts.
+Janelas de Contexto (Busca por Similaridade): Define quantos trechos da base de conhecimento devem ser considerados por similaridade. Recomenda-se 10.
+Tempo para Inspirar Sessão (em minutos): Define o tempo de inatividade após o qual a sessão com o contato expira e o agente "esquece" a conversa anterior.
+0: A sessão nunca expira, mantendo o contexto.
+> 0: A sessão expira após o tempo configurado. Útil para atendimentos rápidos onde o histórico não é necessário. Se a pessoa chamar novamente após a expiração, a IA atenderá do zero.
+Tipo de Resposta: Define o formato de resposta do agente.
+Responda sempre em texto: O agente sempre responde em texto, mesmo se receber áudio (transcreve e responde em texto). Opção recomendada atualmente.
+Responda sempre em áudio: O agente sempre responde em áudio.
+Responda em áudio quando receber áudio: Responde áudio com áudio, texto com texto.
+Responda em texto quando receber áudio: Responde áudio com texto, texto com texto.
+Delay da Primeira Mensagem (em segundos): O tempo que o agente espera antes de enviar a primeira resposta após receber a primeira mensagem. Recomenda-se 3 segundos.
+Delay entre Mensagens (em segundos): O tempo que o agente espera entre as mensagens durante uma conversa. Recomenda-se 2 segundos.
+Conexão com Bases de Conhecimento: Selecione as bases de conhecimento que este agente terá acesso. Importante: Uma vez conectada, o agente consulta automaticamente a base de conhecimento, não sendo necessário instruir no prompt.
+Salvar (Primeira Vez): Para salvar as configurações pela primeira vez, você precisa ir na aba Gatilhos e selecionar pelo menos um canal (ex: WhatsApp), mesmo que não selecione um número específico. Após selecionar o canal, volte e salve.
+3.2. Aba Instruções (Prompt Geral)
+Esta aba contém o prompt geral do agente. Aqui você define a personalidade, o objetivo principal e as diretrizes que se aplicam a todas as etapas, a menos que uma etapa específica tenha uma instrução contraditória. Se um agente não tiver etapas, ele funcionará apenas com este prompt geral.
+3.3. Aba Etapas de Atendimento
+Permite criar e configurar diferentes etapas para o fluxo de conversa do agente.
+Clique em Novo para criar uma nova etapa.
+Nome da Etapa: Dê um nome descritivo para a etapa (ex: Apresentação, Conexão, Quebra de Objeção).
+Prompt da Etapa: Defina as instruções específicas para o agente quando ele estiver nesta etapa. O agente só consultará este prompt (além das instruções gerais e bases de conhecimento) quando estiver nesta etapa, tornando-o mais focado.
+Encerrar Atendimento (Adicionar na Lista de Sessão): Ao habilitar, a IA desliga para este contato assim que ele chega nesta etapa. Útil para etapas de "Falar com Humano".
+Quantidade de Dias/Minutos para Inspirar Exceção: Define por quanto tempo a IA permanecerá desligada para este contato se a opção acima estiver ativa. Após o tempo configurado, a IA volta a atender se o contato chamar novamente.
+Objetivo 1 e 2 / Respostas: Ignorar, formatos menos utilizados.
+Follow-ups: Configure até três follow-ups por etapa baseados na inatividade do usuário. Importante: Os follow-ups são configurados aqui, não no prompt da etapa.
+Defina o tempo de inatividade (em minutos ou horas).
+Defina a ação: Enviar uma mensagem, atribuir a um consultor, resumir atendimento (cria uma nota de resumo no card do lead), mover lead (para uma coluna específica no Kanban).
+3.4. Aba Configurações Adicionais
+Vincular Agendas: Funcionalidade avançada para agendamentos, atualmente pouco utilizada com agentes.
+Dividir as Respostas em Várias Mensagens: Habilite esta opção para que o agente quebre respostas longas em mensagens menores, tornando a conversa mais natural. Importante: Habilite aqui, não precisa instruir o agente a fazer isso no prompt.
+Consultor para Líder: Permite atribuir o agente a um consultor específico. Quando o agente precisar atribuir um lead a um humano e esta opção estiver configurada, ele sempre atribuirá para este consultor. Caso contrário, ele seguirá a regra de distribuição automática de leads do CRM. Esta opção é específica para cenários onde um agente (ex: suporte) deve sempre direcionar contatos para um consultor dedicado.
+3.5. Aba Gatilhos
+Define as condições para ativação do agente e os canais onde ele operará.
+Status: Desativado, Sempre Ativo, Ativado por Gatilho.
+Tipo de Gatilho (se aplicável): Palavra-chave (aciona se a mensagem contiver palavras específicas).
+Dias da Semana e Horários: Configure horários específicos para o agente operar (ex: apenas fora do horário comercial).
+Onde o Agente vai Atuar: Selecione os canais de comunicação conectados onde o agente deve funcionar: WhatsApp, Messenger, Instagram, Widget (chat no site).
+Instância/Número (para WhatsApp/canais específicos): Selecione a instância/número conectado que este agente usará.
+3.6. Aba Configurações de Produto
+Configurações específicas relacionadas ao módulo de Produtos.
+Ativar Acesso aos Produtos: Fundamental para que o agente consiga listar ou detalhar produtos cadastrados na plataforma. Se desativado, o agente não terá acesso a esses dados, mesmo que as funções de produto sejam chamadas no prompt. Habilite para agentes de venda; desabilite para agentes de suporte, por exemplo.
+Veículos: Ignorar (específico para um tipo de cliente).
+Prompt Pós Apresentação de Produto: Um prompt dedicado que define as ações do agente sempre que ele apresenta um produto (listando ou detalhando).
+Este prompt é global, funcionando em qualquer etapa que o agente esteja quando apresentar um produto.
+Use-o para instruir o agente sobre o que perguntar ou fazer imediatamente após mostrar um produto (ex: perguntar se quer falar com um consultor).
+Com base na resposta do cliente a essa pergunta, você pode instruir o agente a usar a função change_step para mover o contato para outra etapa (ex: etapa de falar com consultor, etapa de quebra de objeção de preço, etapa de quebra de objeção geral).
+Você também pode usar outras funções aqui, como salvar o contato, definir funil ou resumir o histórico.
+4. Bases de Conhecimento vs. Produtos
+É crucial entender a diferença:
+Base de Conhecimento: Contém informações mais detalhadas sobre temas variados, incluindo FAQs, detalhes aprofundados sobre cursos/serviços, etc.. É consultada automaticamente pelo agente quando ele precisa de informações para responder a perguntas gerais.
+Produtos: É um cadastro direto com informações concisas (nome, valor, descrição) e mídias (fotos, vídeos, PDFs). Serve como um catálogo direto que o agente pode apresentar usando as funções de produto.
+Quando o agente é instruído a mostrar um produto, ele puxa as informações e mídias do cadastro de Produtos. Se o cliente tiver dúvidas mais aprofundadas sobre o produto, o agente usará a Base de Conhecimento para responder.
+5. Funções Essenciais para Prompts e Configurações
+As fontes mencionam e explicam algumas funções chave que você pode usar nos prompts ou que são ativadas por configurações:
+change_step(número_da_etapa): Muda o atendimento para a etapa especificada pelo número. Exemplo de uso em prompt: "Assim que você capturar o nome do cliente, execute a função change_step(2)".
+list_products: Lista todos os produtos cadastrados e ativos na plataforma. Exemplo de uso em prompt: "Caso o cliente deseje saber os produtos que temos chame a função list_products e liste os produtos disponíveis". O agente apresentará os produtos cadastrados no módulo de Produtos.
+detail_products: Mostra os detalhes de um produto específico, incluindo as mídias (fotos, vídeos, PDFs) e o texto cadastrado. Exemplo de uso em prompt: "Caso o cliente já mencione um curso específico antes de se apresentar chame a função detail_products para mostrar o curso desejado sempre enviando o PDF, fotos, vídeos e todas as informações que tem cadastrado no curso".
+save_data_of_current_contact_from_responses: Salva o contato no Kanban do CRM. Usada geralmente com argumentos.
+code_funnel=número_do_funil: Define para qual funil (coluna do Kanban) o lead será movido ao ser salvo. O número corresponde ao código da coluna no CRM.
+sumarize_historic=true: Cria um resumo automático do atendimento na nota do card do lead no CRM. Útil para que o consultor humano tenha um resumo rápido antes de assumir o atendimento.
+Exemplo de uso combinado em configuração ou prompt: Chamar save_data_of_current_contact_from_responses com os argumentos code_funnel=18 e sumarize_historic=true. Isso salva o contato, move para a coluna 18 e cria o resumo. É comum informar ao cliente que ele será encaminhado para um consultor após executar essas funções.
+6. Conectando Canais (Integrações)
+Antes de um agente operar, ele precisa estar conectado a uma fonte de comunicação. As conexões são feitas no menu Integrações.
+Facebook/Meta (Messenger e Instagram Direct): Conecte-se através do login no Facebook, selecionando a página desejada e concedendo as permissões necessárias.
+WhatsApp: Há duas formas de conectar um número:
+Captura de Lead: Conecta o número e todas as mensagens recebidas são puxadas para o CRM. Não use para testar se você for um parceiro desenvolvendo para um cliente, pois isso levará suas conversas de teste para o CRM dele. Use apenas para números finais de clientes em implementação de ponta a ponta.
+Conectar Chat: Conecta o número para uso da IA, mas as mensagens não são puxadas para o CRM. Use esta opção para seus testes como parceiro/desenvolvedor. Para conectar, clique em Conectar Chat, gere o QR code e escaneie com o seu WhatsApp.
+Widget: Crie um chat widget para integrar em sites. Configure nome, mensagem inicial e cores. O chat criado aparece como uma opção para selecionar na aba Gatilhos.
+Após conectar o canal, lembre-se de selecioná-lo e a instância/número correspondente na aba Gatilhos do agente. Certifique-se de que o agente está ativado na aba Gatilhos para que ele comece a funcionar.
+7. Testando e Depurando Agentes
+Testar e depurar é uma parte crucial do processo de criação de agentes.
+Aba Testar: A aba "Testar" dentro da configuração do agente não é recomendada para testes completos. Ela não simula o ambiente real do WhatsApp ou outros canais e não permite testar funcionalidades como mostrar produtos, mover leads para o Kanban ou criar resumos. Use-a apenas para "inglês ver".
+Teste Real: Sempre teste seu agente em um WhatsApp conectado (usando a opção Conectar Chat para não poluir o CRM do cliente com testes).
+Sessões: A aba Sessões lista todas as conversas ativas que o agente está tendo. Para testar um prompt ou configuração alterada, é essencial apagar a sua sessão. Se você não apagar a sessão, o agente continuará a conversa de onde parou no contexto anterior, o que pode impedir que você teste o novo cenário desde o início ou veja como as alterações se comportam sem histórico. Para apagar sua sessão, vá na aba Sessões do agente, encontre sua sessão (pode pesquisar) e clique em excluir. Atualize a lista de sessões se necessário.
+Mensagens (Logs): A aba Mensagens, ao lado de Sessões, exibe os logs detalhados das conversas. Você pode ver suas mensagens e as respostas do agente, incluindo as funções que ele chamou (ex: change_step, detail_products). Use os logs para depurar: se o agente não se comportou como esperado, verifique nos logs se ele chegou na etapa correta, se chamou a função esperada, etc.. Isso ajuda a identificar onde o prompt precisa ser ajustado.
+8. Dicas e Melhores Práticas
+Planejamento: Antes de começar a escrever prompts e configurar etapas, planeje o fluxo do agente. Entenda as etapas do processo do cliente (especialmente se for um agente comercial integrado com CRM) e como as funcionalidades da plataforma (etapas, follow-ups, funis do CRM) podem ser usadas estrategicamente. Um bom planejamento leva em conta as possibilidades da ferramenta.
+Use as Etapas: Dividir o fluxo em etapas focadas torna o agente mais assertivo e fácil de gerenciar.
+Configure Follow-ups: Utilize os follow-ups por etapa para recuperar leads inativos de forma automática e estratégica.
+Configuração de Produto Global: Lembre-se de usar o prompt nas configurações de produto para definir as ações globais pós-apresentação de produto, garantindo que o agente saiba o que fazer em qualquer etapa.
+Teste Exaustivamente: Use seu WhatsApp de teste e apague as sessões sempre que modificar o prompt ou configurações para simular novos atendimentos e verificar o impacto das mudanças.
+Debug com Logs: Use a aba Mensagens para entender o que o agente "pensou" e quais ações tomou, facilitando a identificação de erros no prompt.
+Habilitar Divisão de Mensagens: Sempre habilite a opção de dividir respostas longas para uma comunicação mais natural.
+
+Este guia fornece uma visão completa dos principais recursos e configurações para criar agentes de IA na plataforma, extraindo informações diretamente das fontes fornecidas. Ao entender e aplicar estes conceitos, você poderá construir agentes robustos e eficazes.

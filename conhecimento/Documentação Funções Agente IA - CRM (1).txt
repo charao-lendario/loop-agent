@@ -1,0 +1,99 @@
+﻿change_step(2) - Muda o agente de etapa, entre () está o número da etapa que desejamos enviar o atendimento, se estiver (4) quer dizer que vamos enviar o lead para a etapa 4.
+Exemplo de uso: 1. Se apresente conforme o exemplo independente da primeira mensagem e chame a função change_step(2).
+
+
+-
+
+
+list_products - Lista os produtos que temos cadastrado para a pessoa escolher.
+Exemplo de uso: 2. Caso o cliente deseje saber os produtos que temos chame a função list_products e liste os produtos disponíveis.
+
+
+-
+
+
+detail_products - Mostra detalhes de um produto enviando as informações cadastradas do produto tal como fotos, vídeos e arquivos.
+Exemplo de uso: Caso o cliente já mencione um curso específico antes de se apresentar chame a função detail_products para mostrar o curso desejado sempre enviando o PDF, fotos, vídeos e todas as informações que tem cadastrado no curso.
+
+
+-
+
+
+save_data_of_current_contact_from_responses - Salva um contato que está sendo atendido no Kanban
+code_funnel=18 - Define qual é o Funil que o lead será inserido, o número depois do = indica o código do Funil. Toda coluna criada tem um código, basta pegar o mesmo no cadastro da coluna e colocar após o sinal de igual.
+sumarize_historic=true - Criar um resumo do atendimento na nota do card do lead.
+Exemplo de uso: Após capturar a resposta informada pelo cliente chame a função save_data_of_current_contact_from_responses com os argumentos code_funnel=18 e sumarize_historic=true e informe que você encaminhou o contato dela para um dos nossos consultores.
+
+
+No exemplo acima estou dizendo que após o cliente responder ele deve salvar esse contato, mover para a coluna “18” e criar um resumo do atendimento na nota do card do lead.
+
+
+
+
+Agendas:
+
+
+list_users_have_agenda_calendars - lista os usuários/consultores que possuem agendas no calendário
+- Chame a função list_users_have_agenda_calendars() para listar e ter ciência de quais usuários possuem agendas.
+No exemplo acima a instrução tenta forçar o modelo de IA a chamar a função.
+- Caso necessário, chame a função list_users_have_agenda_calendars para listar e ter ciência de quais usuários possuem agendas.
+No exemplo acima a instrução apenas indica que no contexto certo o modelo de IA a chama a função.
+list_calendars_agendas - lista os calendários de agendas e disponibilidades de datas e horários
+parâmetros:
+        userId: id do usuário dono da agenda
+        nextDays: quantidade de dias para exibir a lista de dias disponíveis para no calendário
+Exemplo de uso: 
+- Chame a função list_calendars_agendas(841, 9)
+No exemplo acima tenta forçar o modelo de IA a chamar a função no contexto, passando o usuário e quantos dias será mostrado
+
+
+- Se necessário chame a função list_calendars_agendas com o usuário escolhido mostrando os 10 primeiros dias.
+No exemplo acima o modelo de IA irá chamar a função no contexto quando identificado, passando o usuário e quantos dias será mostrado.
+
+
+check_date_only_is_available - checa se apenas data solicitada pelo contato está disponível na agenda
+parâmetros:
+        userId: id do usuário dono da agenda
+        date: apenas data no formato DD/MM/AAAA solicitada pelo contato para filtrar os calendário
+Exemplo de uso: 
+
+
+- Chame a função check_date_only_is_available(804, [data informada]) para validar se a data escolhida está disponível.
+No exemplo acima tenta forçar o modelo de IA a chamar a função no contexto, passando o usuário e a data, a data pode ser pedido em outro contexto.
+
+
+- Se necessário chame a função check_date_only_is_available  para validar se a data escolhida está disponível.
+No exemplo acima tenta forçar o modelo de IA a chamar a função no contexto, passando o usuário e a data obtida em outro momento da conversa.
+
+
+check_date_time_is_available - checa se apenas data/hora solicitada pelo contato está disponível na agenda
+parâmetros:
+        userId: id do usuário dono da agenda
+        dateTime: data e hora para consulta no formato (YYYY-MM-DD HH:mm)
+- Chame a função check_date_time_is_available(804, [data/hora informada]) para validar se a data/hora escolhida está disponível.
+
+
+No exemplo acima tenta forçar o modelo de IA a chamar a função no contexto, passando o usuário e a data, a data pode ser pedido em outro momento da conversa/contexto.
+
+
+- Se necessário chame a função check_date_time_is_available  para validar se a data e hora escolhida está disponível.
+
+
+No exemplo acima tenta forçar o modelo de IA a chamar a função no contexto, passando o usuário e a data e hora obtida em outro momento da conversa/contexto.
+
+
+add_calendars_agendas - adiciona um compromisso no calendário de agenda do usuário/consultor identificado no userId
+parâmetros:
+  userId: id do usuário dono da agenda
+  title: 'título do compromisso da agenda, identificado na conversa'
+  description:  'descrição detalhada do compromisso da agenda, identificado na conversa'
+  start: 'data e hora do início do compromisso da agenda (data e hora no formato YYYY-MM-DD HH:MM), identificado na conversa conforme definição do calendário'
+  end: 'data e hora do final do compromisso da agenda (data e hora no formato YYYY-MM-DD HH:MM), identificado na conversa conforme definição do calendário'
+  allDay: 'boolean que identifica se é compromisso no dia todo da agenda, identificado na conversa conforme definição do calendário'
+
+
+Exemplo de uso:
+- Chame a função add_calendars_agendas para agendar conforme as informações obtidas.
+
+
+No exemplo acima o modelo de IA faz a chamada passando os dados obtidos em outro momento da conversa/contexto.
