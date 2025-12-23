@@ -327,12 +327,12 @@ Conteúdo do bloco aqui...
 
 1. **Configurações Gerais** - Nome, temperatura, modelo, janelas de contexto, tempo de sessão, divisão de mensagens, etc.
 2. **Prompt Principal** - O prompt geral do agente com identidade, propósito e diretrizes
-3. **Etapa 1** - Prompt da primeira etapa (repetir para cada etapa necessária)
-4. **Etapa 2** - Prompt da segunda etapa
-5. **Etapa N** - Quantas etapas forem necessárias
-6. **Configuração de Produto** - Prompt pós-apresentação de produto (se aplicável)
-7. **Follow-ups** - Configurações de follow-up por etapa (se aplicável)
-8. **Gatilhos** - Configurações de ativação e canais
+3. **Para cada Etapa, criar 2 blocos separados:**
+   - **Etapa X - Título** - Apenas o nome/título da etapa
+   - **Etapa X - Prompt** - O prompt completo da etapa
+4. **Configuração de Produto** - Prompt pós-apresentação de produto (se aplicável)
+5. **Follow-ups** - Configurações de follow-up por etapa (se aplicável)
+6. **Gatilhos** - Configurações de ativação e canais
 
 ### EXEMPLO DE FORMATO DE RESPOSTA:
 
@@ -361,19 +361,33 @@ Você é [Nome], assistente virtual da [Empresa]...
 1. Você deve focar em seu objetivo, caso o cliente desfie o foco, responda baseado na sua base de conhecimento e volte a fazer a pergunta que cumpre o seu objetivo.
 [/BLOCO]
 
-[BLOCO: Etapa 1 - Boas-vindas]
+[BLOCO: Etapa 1 - Título]
+Boas-vindas e Qualificação
+[/BLOCO]
+
+[BLOCO: Etapa 1 - Prompt]
 ### OBJETIVO DA ETAPA: Boas-vindas e Qualificação
-...conteúdo do prompt da etapa...
+
+Olá! Seja bem-vindo(a)...
 
 ### IMPORTANTE
 1. Você deve focar em seu objetivo, caso o cliente desfie o foco, responda baseado na sua base de conhecimento e volte a fazer a pergunta que cumpre o seu objetivo.
 [/BLOCO]
 
-[BLOCO: Etapa 2 - Apresentação]
-...conteúdo...
+[BLOCO: Etapa 2 - Título]
+Apresentação de Produtos
 [/BLOCO]
 
-E assim por diante para cada bloco necessário.
+[BLOCO: Etapa 2 - Prompt]
+### OBJETIVO DA ETAPA: Apresentação de Produtos
+
+...conteúdo do prompt...
+
+### IMPORTANTE
+1. Você deve focar em seu objetivo, caso o cliente desfie o foco, responda baseado na sua base de conhecimento e volte a fazer a pergunta que cumpre o seu objetivo.
+[/BLOCO]
+
+E assim por diante para cada etapa (sempre separando Título e Prompt em blocos distintos).
 
 ## COMPETÊNCIAS TÉCNICAS CORE
 
