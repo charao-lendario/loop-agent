@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Send, Bot, User, Loader2, Sparkles } from 'lucide-react';
+import { Send, Bot, User, Loader2, Sparkles, Copy, Check } from 'lucide-react';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -12,6 +12,106 @@ interface ChatMessage {
   role: 'user' | 'assistant';
   content: string;
 }
+
+// Componente para blocos copiáveis
+const CopyableBlock: React.FC<{ title: string; content: string }> = ({ title, content }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(content);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="my-4 border border-gray-200 rounded-xl overflow-hidden bg-gray-50">
+      <div className="flex items-center justify-between px-4 py-2 bg-gray-100 border-b border-gray-200">
+        <span className="text-xs font-bold text-gray-600 uppercase tracking-wide">{title}</span>
+        <button
+          onClick={handleCopy}
+          className="flex items-center gap-1 px-2 py-1 text-xs font-medium text-gray-500 hover:text-orange-600 hover:bg-orange-50 rounded-md transition-all"
+        >
+          {copied ? (
+            <>
+              <Check className="w-3.5 h-3.5 text-green-500" />
+              <span className="text-green-500">Copiado!</span>
+            </>
+          ) : (
+            <>
+              <Copy className="w-3.5 h-3.5" />
+              <span>Copiar</span>
+            </>
+          )}
+        </button>
+      </div>
+      <div className="p-4 text-sm whitespace-pre-wrap font-mono text-gray-800 bg-white">
+        {content}
+      </div>
+    </div>
+  );
+};
+
+// Função para parsear conteúdo em blocos
+const parseContentBlocks = (content: string) => {
+  // Regex para encontrar blocos delimitados por [BLOCO: título] ... [/BLOCO]
+  const blockRegex = /\[BLOCO:\s*([^\]]+)\]([\s\S]*?)\[\/BLOCO\]/g;
+  const parts: Array<{ type: 'text' | 'block'; content: string; title?: string }> = [];
+  let lastIndex = 0;
+  let match;
+
+  while ((match = blockRegex.exec(content)) !== null) {
+    // Adiciona texto antes do bloco
+    if (match.index > lastIndex) {
+      const textBefore = content.slice(lastIndex, match.index).trim();
+      if (textBefore) {
+        parts.push({ type: 'text', content: textBefore });
+      }
+    }
+
+    // Adiciona o bloco
+    parts.push({
+      type: 'block',
+      title: match[1].trim(),
+      content: match[2].trim()
+    });
+
+    lastIndex = match.index + match[0].length;
+  }
+
+  // Adiciona texto restante após o último bloco
+  if (lastIndex < content.length) {
+    const remaining = content.slice(lastIndex).trim();
+    if (remaining) {
+      parts.push({ type: 'text', content: remaining });
+    }
+  }
+
+  // Se não encontrou nenhum bloco, retorna o conteúdo original
+  if (parts.length === 0) {
+    return [{ type: 'text' as const, content }];
+  }
+
+  return parts;
+};
+
+// Componente para renderizar mensagem com blocos
+const MessageContent: React.FC<{ content: string }> = ({ content }) => {
+  const parts = parseContentBlocks(content);
+
+  return (
+    <div>
+      {parts.map((part, idx) => (
+        part.type === 'block' ? (
+          <CopyableBlock key={idx} title={part.title || ''} content={part.content} />
+        ) : (
+          <div key={idx} className="whitespace-pre-wrap text-sm sm:text-base leading-relaxed break-words font-medium">
+            {part.content}
+          </div>
+        )
+      ))}
+    </div>
+  );
+};
 
 const App: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -151,7 +251,7 @@ const App: React.FC = () => {
             className={`flex w-full animate-in fade-in slide-in-from-bottom-2 duration-300 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             <div
-              className={`flex max-w-[90%] md:max-w-[80%] gap-3 items-start ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'
+              className={`flex max-w-[90%] md:max-w-[85%] gap-3 items-start ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'
                 }`}
             >
               <div className={`p-2 rounded-lg shrink-0 shadow-sm ${msg.role === 'user' ? 'bg-orange-100' : 'bg-orange-600'
@@ -160,13 +260,17 @@ const App: React.FC = () => {
               </div>
               <div
                 className={`p-5 rounded-2xl border shadow-sm ${msg.role === 'user'
-                    ? 'bg-orange-50 border-orange-200 rounded-tr-none text-black'
-                    : 'bg-white border-gray-200 rounded-tl-none text-black'
+                  ? 'bg-orange-50 border-orange-200 rounded-tr-none text-black'
+                  : 'bg-white border-gray-200 rounded-tl-none text-black'
                   }`}
               >
-                <div className="whitespace-pre-wrap text-sm sm:text-base leading-relaxed break-words font-medium">
-                  {msg.content}
-                </div>
+                {msg.role === 'assistant' ? (
+                  <MessageContent content={msg.content} />
+                ) : (
+                  <div className="whitespace-pre-wrap text-sm sm:text-base leading-relaxed break-words font-medium">
+                    {msg.content}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -202,8 +306,8 @@ const App: React.FC = () => {
             onClick={handleSend}
             disabled={!input.trim() || isLoading}
             className={`absolute right-3 bottom-3 p-3 rounded-xl transition-all ${!input.trim() || isLoading
-                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                : 'bg-orange-500 text-white hover:bg-orange-600 active:scale-95 shadow-lg shadow-orange-200'
+              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              : 'bg-orange-500 text-white hover:bg-orange-600 active:scale-95 shadow-lg shadow-orange-200'
               }`}
           >
             {isLoading ? <Loader2 className="w-6 h-6 animate-spin" /> : <Send className="w-6 h-6" />}
