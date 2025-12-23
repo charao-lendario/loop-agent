@@ -362,7 +362,7 @@ Você é [Nome], assistente virtual da [Empresa]...
 [/BLOCO]
 
 [BLOCO: Etapa 1 - Título]
-Boas-vindas e Qualificação
+Etapa 1 - Boas-vindas e Qualificação
 [/BLOCO]
 
 [BLOCO: Etapa 1 - Prompt]
@@ -375,7 +375,7 @@ Olá! Seja bem-vindo(a)...
 [/BLOCO]
 
 [BLOCO: Etapa 2 - Título]
-Apresentação de Produtos
+Etapa 2 - Apresentação de Produtos
 [/BLOCO]
 
 [BLOCO: Etapa 2 - Prompt]
